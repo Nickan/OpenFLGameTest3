@@ -1,4 +1,4 @@
-package;
+package screen;
 
 import event.CollisionEvent;
 import event.GameOverEvent;
@@ -22,10 +22,12 @@ class GameScreen extends Sprite
 	var _scoreSprite :TextSprite;
 	var _levelManager :LevelManager;
 	var _levelSprite :TextSprite;
+	var _difficulty :String;
 	
-	public function new() 
+	public function new(difficulty :String) 
 	{
 		super();
+		_difficulty = difficulty;
 		addEventListener(Event.ADDED_TO_STAGE, onAdded);
 		addEventListener(Event.ENTER_FRAME, onUpdate);
 		addEventListener(Event.REMOVED_FROM_STAGE, onRemoved);
@@ -46,12 +48,13 @@ class GameScreen extends Sprite
 		_startingX = stage.stageWidth * 0.2;
 		_startingY = stage.stageHeight * 0.2;
 		
-		setupLevelManager();
 		setupBackground();
 		setupSnake();
 		setupApples();
 		setupScoreSprite();
 		setupLevelSprite();
+		setupLevelManager();
+		
 	}
 	
 	function setupBackground() 
@@ -86,22 +89,24 @@ class GameScreen extends Sprite
 	function setupScoreSprite() 
 	{
 		_scoreSprite = new TextSprite();
-		_scoreSprite.x = _startingX + stage.stageWidth * 0.13;
+		_scoreSprite.x = _startingX + stage.stageWidth * 0.07;
 		_scoreSprite.y = _startingY;
 		addChild(_scoreSprite);
 	}
 	
 	function setupLevelManager() 
 	{
-		_levelManager = new LevelManager();
+		_levelManager = new LevelManager(_difficulty);
 		_levelManager.addEventListener(LevelManagerEvent.CHANGE_LEVEL, onLevelChanged);
+		addChild(_levelManager);
+		
 	}
 	
 	function setupLevelSprite() 
 	{
 		_levelSprite = new TextSprite();
-		_levelSprite.x = _startingX;
-		_levelSprite.y = _startingY;
+		_levelSprite.x = _startingX + _snake.getHead().width * 2;
+		_levelSprite.y = _startingY + _snake.getHead().height * 8.5;
 		addChild(_levelSprite);
 		_levelSprite.showText("Level: " + 1);
 	}
@@ -122,7 +127,14 @@ class GameScreen extends Sprite
 	
 	private function onLevelChanged(e:LevelManagerEvent):Void 
 	{
-		_levelSprite.showText("Level: " + e.level);
+		var difficultySetting = "";
+		switch (e.level) {
+			case 1: difficultySetting = "Easy";
+			case 2: difficultySetting = "Normal";
+			case 3: difficultySetting = "Hard";
+			default: difficultySetting = "Error";
+		}
+		_levelSprite.showText("Difficulty: " + difficultySetting);
 		_snake.currentLevel = e.level;
 	}
 	

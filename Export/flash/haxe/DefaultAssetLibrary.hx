@@ -49,6 +49,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/apple.png", AssetType.IMAGE);
 		className.set ("assets/box.png", __ASSET__assets_box_png);
 		type.set ("assets/box.png", AssetType.IMAGE);
+		className.set ("assets/button/button_normal.png", __ASSET__assets_button_button_normal_png);
+		type.set ("assets/button/button_normal.png", AssetType.IMAGE);
+		className.set ("assets/button/button_over.png", __ASSET__assets_button_button_over_png);
+		type.set ("assets/button/button_over.png", AssetType.IMAGE);
+		className.set ("assets/button/button_pressed.png", __ASSET__assets_button_button_pressed_png);
+		type.set ("assets/button/button_pressed.png", AssetType.IMAGE);
 		
 		
 		#elseif html5
@@ -59,6 +65,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		type.set (id, AssetType.IMAGE);
 		id = "assets/box.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "assets/button/button_normal.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "assets/button/button_over.png";
+		path.set (id, id);
+		
+		type.set (id, AssetType.IMAGE);
+		id = "assets/button/button_pressed.png";
 		path.set (id, id);
 		
 		type.set (id, AssetType.IMAGE);
@@ -78,6 +96,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		
 		
+		
+		
+		
 		#end
 		
 		#if (windows || mac || linux)
@@ -89,6 +110,15 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/box.png", __ASSET__assets_box_png);
 		type.set ("assets/box.png", AssetType.IMAGE);
+		
+		className.set ("assets/button/button_normal.png", __ASSET__assets_button_button_normal_png);
+		type.set ("assets/button/button_normal.png", AssetType.IMAGE);
+		
+		className.set ("assets/button/button_over.png", __ASSET__assets_button_button_over_png);
+		type.set ("assets/button/button_over.png", AssetType.IMAGE);
+		
+		className.set ("assets/button/button_pressed.png", __ASSET__assets_button_button_pressed_png);
+		type.set ("assets/button/button_pressed.png", AssetType.IMAGE);
 		
 		
 		if (useManifest) {
@@ -692,9 +722,15 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 @:keep @:bind #if display private #end class __ASSET__assets_apple_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind #if display private #end class __ASSET__assets_box_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_button_button_normal_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_button_button_over_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep @:bind #if display private #end class __ASSET__assets_button_button_pressed_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 
 
 #elseif html5
+
+
+
 
 
 
@@ -709,6 +745,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 @:image("Assets/apple.png") #if display private #end class __ASSET__assets_apple_png extends lime.graphics.Image {}
 @:image("Assets/box.png") #if display private #end class __ASSET__assets_box_png extends lime.graphics.Image {}
+@:image("Assets/button/button_normal.png") #if display private #end class __ASSET__assets_button_button_normal_png extends lime.graphics.Image {}
+@:image("Assets/button/button_over.png") #if display private #end class __ASSET__assets_button_button_over_png extends lime.graphics.Image {}
+@:image("Assets/button/button_pressed.png") #if display private #end class __ASSET__assets_button_button_pressed_png extends lime.graphics.Image {}
 
 
 

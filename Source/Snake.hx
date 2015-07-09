@@ -12,7 +12,7 @@ import openfl.geom.Point;
 class Snake extends Sprite
 {
 	static var DEFAULT_PARTS_NUMBER :Int = 3;
-	static var INTERVAL_REDUCTION :Float = 0.25;
+	static var INTERVAL_REDUCTION :Float = 0.4;
 	static var DEFAULT_INTERVAL = 1 + INTERVAL_REDUCTION;
 	
 	public var currentLevel(default, set) :Int;

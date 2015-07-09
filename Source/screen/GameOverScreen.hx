@@ -1,5 +1,6 @@
-package;
+package screen;
 import event.StartGameEvent;
+import event.TitleScreenEvent;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.events.KeyboardEvent;
@@ -92,7 +93,7 @@ class GameOverScreen extends Sprite
 	private function onMouseClicked(e:MouseEvent):Void 
 	{
 		removeEventListener(MouseEvent.CLICK, onMouseClicked);
-		dispatchEvent(new StartGameEvent(StartGameEvent.START_GAME));
+		dispatchEvent(new TitleScreenEvent(TitleScreenEvent.TITLE_SCREEN));
 	}
 	
 	private function onKeyboardDown(e:KeyboardEvent):Void 
@@ -105,7 +106,7 @@ class GameOverScreen extends Sprite
 				highScore.flush();
 			}
 			
-			dispatchEvent(new StartGameEvent(StartGameEvent.START_GAME));
+			dispatchEvent(new TitleScreenEvent(TitleScreenEvent.TITLE_SCREEN));
 		}
 	}
 	
