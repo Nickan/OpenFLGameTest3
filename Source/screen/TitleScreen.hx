@@ -1,4 +1,5 @@
 package screen;
+import event.LevelManagerEvent;
 import event.StartGameEvent;
 import openfl.Assets;
 import openfl.display.Bitmap;
@@ -58,8 +59,8 @@ class TitleScreen extends Sprite
 	function onButtonDown(buttonText :String) 
 	{
 		dispatchEvent(new StartGameEvent(StartGameEvent.START_GAME, false, false, buttonText));
-		//for (button in _buttons) 
-			//button.dispose();
+		for (button in _buttons) 
+			button.dispose();
 	}
 	
 

@@ -2,6 +2,7 @@ package;
 
 
 import event.GameOverEvent;
+import event.LevelManagerEvent;
 import event.StartGameEvent;
 import event.TitleScreenEvent;
 import openfl.display.Sprite;
@@ -34,7 +35,6 @@ class Main extends Sprite {
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, onAdded);
 		setupTitleScreen();
-		//setupGameScreen("Hard");
 	}
 	
 	function setupTitleScreen() 
