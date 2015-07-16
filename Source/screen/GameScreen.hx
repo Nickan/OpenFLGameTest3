@@ -6,6 +6,7 @@ import event.LevelManagerEvent;
 import event.SnakeCollisionEvent;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import openfl.Lib;
 import openfl.net.SharedObject;
 
 /**
@@ -14,11 +15,9 @@ import openfl.net.SharedObject;
  */
 class GameScreen extends Sprite
 {
-	var _startingX :Float;
-	var _startingY :Float;
 	var _snake :Snake;
 	var _apple :AppleSprite;
-	var _score :Float = 0;
+	var _score :Int = 0;
 	var _scoreSprite :TextSprite;
 	var _levelManager :LevelManager;
 	var _levelSprite :TextSprite;
@@ -31,6 +30,22 @@ class GameScreen extends Sprite
 		addEventListener(Event.ADDED_TO_STAGE, onAdded);
 		addEventListener(Event.ENTER_FRAME, onUpdate);
 		addEventListener(Event.REMOVED_FROM_STAGE, onRemoved);
+		addEventListener(Event.ACTIVATE, onActivated);
+		addEventListener(Event.DEACTIVATE, onDeactivated);
+	}
+	
+	private function onActivated(e:Event):Void 
+	{
+		//...
+		trace("Activate: " + Lib.getTimer());
+		TimeManager.getInstance().pause = false;
+	}
+	
+	private function onDeactivated(e:Event):Void 
+	{
+		//...
+		trace("Deactivate: " + Lib.getTimer());
+		TimeManager.getInstance().pause = true;
 	}
 	
 	private function onRemoved(e:Event):Void 
@@ -45,10 +60,8 @@ class GameScreen extends Sprite
 	private function onAdded(e:Event):Void 
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, onAdded);
-		_startingX = stage.stageWidth * 0.2;
-		_startingY = stage.stageHeight * 0.2;
 		
-		setupBackground();
+		//setupBackground();
 		setupSnake();
 		setupApples();
 		setupScoreSprite();
@@ -60,16 +73,12 @@ class GameScreen extends Sprite
 	function setupBackground() 
 	{
 		var bg = new BackgroundSprite(0xFFFFFF, 400, 400);
-		bg.x = _startingX;
-		bg.y = _startingY;
 		addChild(bg);
 	}
 	
 	function setupSnake() 
 	{
 		_snake = new Snake();
-		_snake.x = _startingX;
-		_snake.y = _startingY;
 		addChild(_snake);
 		
 		_snake.addEventListener(SnakeCollisionEvent.SNAKE_COLLISION, onSnakeCollision);
@@ -78,8 +87,6 @@ class GameScreen extends Sprite
 	function setupApples() 
 	{
 		_apple = new AppleSprite(_snake);
-		_apple.x = _startingX;
-		_apple.y = _startingY;
 		addChild(_apple);
 		
 		_apple.addEventListener(CollisionEvent.COLLIDES_WITH_APPLE, _snake.onAppleCollision);
@@ -89,9 +96,9 @@ class GameScreen extends Sprite
 	function setupScoreSprite() 
 	{
 		_scoreSprite = new TextSprite();
-		_scoreSprite.x = _startingX + stage.stageWidth * 0.07;
-		_scoreSprite.y = _startingY;
 		addChild(_scoreSprite);
+		_scoreSprite.showText("Score: " + _score);
+		_scoreSprite.x = stage.stageWidth * 0.5 - (_scoreSprite.width * 0.5);
 	}
 	
 	function setupLevelManager() 
@@ -105,24 +112,25 @@ class GameScreen extends Sprite
 	function setupLevelSprite() 
 	{
 		_levelSprite = new TextSprite();
-		_levelSprite.x = _startingX + _snake.getHead().width * 2;
-		_levelSprite.y = _startingY + _snake.getHead().height * 8.5;
 		addChild(_levelSprite);
 		_levelSprite.showText("Level: " + 1);
+		
+		_levelSprite.x = stage.stageWidth * 0.5 - (_levelSprite.width * 0.5);
+		_levelSprite.y = _snake.getHead().height * 8.5;
 	}
 	
 	// ================================================ UPDATE ================================================== //
 	private function onUpdate(e:Event):Void 
 	{
 		var delta = TimeManager.getInstance().delta;
-		_score += delta;
-		_scoreSprite.showText("Score: " + Std.int(_score));
+		//_score += delta;
+		
 	}
 	
 	// ================================================ EVENT ================================================== //
 	private function onAppleCollision(e:CollisionEvent):Void 
 	{
-		///...
+		_scoreSprite.showText("Score: " + Std.int(++_score));
 	}
 	
 	private function onLevelChanged(e:LevelManagerEvent):Void 
@@ -135,6 +143,7 @@ class GameScreen extends Sprite
 			default: difficultySetting = "Error";
 		}
 		_levelSprite.showText("Difficulty: " + difficultySetting);
+		_levelSprite.x = stage.stageWidth * 0.5 - (_levelSprite.width * 0.5);
 		_snake.currentLevel = e.level;
 	}
 	

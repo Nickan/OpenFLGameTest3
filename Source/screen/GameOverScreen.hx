@@ -14,8 +14,6 @@ import openfl.ui.Keyboard;
  */
 class GameOverScreen extends Sprite
 {
-	var _startingX :Float;
-	var _startingY :Float;
 	var _gameOverText :TextSprite;
 	var _score :Int;
 	var _savedHighScore :Int;
@@ -35,9 +33,6 @@ class GameOverScreen extends Sprite
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, onAdded);
 		stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyboardDown);
-		_startingX = stage.stageWidth * 0.2;
-		_startingY = stage.stageHeight * 0.2;
-		
 		setupBackground();
 		setupSavedHighScore();
 		setupGameOverText();
@@ -46,16 +41,12 @@ class GameOverScreen extends Sprite
 	function setupBackground() 
 	{
 		var bg = new BackgroundSprite(0xFFFFFF, 400, 400);
-		bg.x = _startingX;
-		bg.y = _startingY;
 		addChild(bg);
 	}
 	
 	function setupSavedHighScore() 
 	{
 		_savedHighScoreSprite = new TextSprite();
-		_savedHighScoreSprite.x = _startingX + stage.stageWidth * 0.03;
-		_savedHighScoreSprite.y = _startingY;
 		addChild(_savedHighScoreSprite);
 		
 		var highScore = SharedObject.getLocal("high_score");
@@ -64,6 +55,9 @@ class GameOverScreen extends Sprite
 		else
 			_savedHighScore = 0;
 		_savedHighScoreSprite.showText("High Score: " + _savedHighScore);
+		
+		_savedHighScoreSprite.x = stage.stageWidth * 0.5 - (_savedHighScoreSprite.width * 0.5);
+		_savedHighScoreSprite.y = stage.stageHeight * 0.25;
 		
 		if (_score > _savedHighScore) {
 			highScore.data.high_score = _score;
@@ -74,13 +68,14 @@ class GameOverScreen extends Sprite
 	function setupGameOverText() 
 	{
 		_gameOverText = new TextSprite();
-		_gameOverText.x = _startingX + stage.stageWidth * 0.03;
-		_gameOverText.y = _startingY + stage.stageHeight * 0.2;
 		addChild(_gameOverText);
 		if (_score > _savedHighScore)
 			_gameOverText.showText("New High Score: " + _score);
 		else
 			_gameOverText.showText("Your Score: " + _score);
+			
+		_gameOverText.x = stage.stageWidth * 0.5 - (_gameOverText.width * 0.5);
+		_gameOverText.y = stage.stageHeight * 0.55;
 	}
 	
 	// ================================================ UPDATE ================================================== //

@@ -115,7 +115,7 @@ class ApplicationMain {
 		config = {
 			
 			antialiasing: Std.int (0),
-			background: Std.int (0),
+			background: Std.int (16777215),
 			borderless: false,
 			company: "Company Name",
 			depthBuffer: false,
@@ -123,7 +123,7 @@ class ApplicationMain {
 			fps: Std.int (30),
 			fullscreen: false,
 			hardware: true,
-			height: Std.int (600),
+			height: Std.int (400),
 			orientation: "",
 			packageName: "com.sample.openflgametest3",
 			resizable: true,
@@ -131,13 +131,13 @@ class ApplicationMain {
 			title: "OpenFLGameTest3",
 			version: "1.0.0",
 			vsync: false,
-			width: Std.int (500),
+			width: Std.int (400),
 			
 		}
 		
 		#if (js && html5)
 		#if (munit || utest)
-		openfl.Lib.embed (null, 500, 600, "000000");
+		openfl.Lib.embed (null, 400, 400, "FFFFFF");
 		#end
 		#else
 		create ();

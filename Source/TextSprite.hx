@@ -2,6 +2,7 @@ package;
 import openfl.display.Sprite;
 import openfl.events.Event;
 import openfl.text.TextField;
+import openfl.text.TextFieldAutoSize;
 import openfl.text.TextFormat;
 import openfl.text.TextFormatAlign;
 
@@ -29,11 +30,12 @@ class TextSprite extends Sprite
 	function setupTextField() 
 	{
 		var textFormat = new TextFormat("Verdana", 30, 0x000000, true);
-		textFormat.align = TextFormatAlign.LEFT;
+		//textFormat.align = TextFormatAlign.LEFT;
 		
 		_textField = new TextField();
 		_textField.defaultTextFormat = textFormat;
-		_textField.width = stage.stageWidth;
+		_textField.autoSize = TextFieldAutoSize.LEFT;
+		//_textField.width = stage.stageWidth;
 		addChild(_textField);
 	}
 	
