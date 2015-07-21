@@ -64,6 +64,10 @@ class TextButton extends Sprite
 		textField.text = _text;
 		textField.mouseEnabled = false;
 		addChild(textField);
+		
+		#if html5
+			textField.x = getBounds(this).width * 0.5 - textField.width * 0.5;
+		#end
 		var textBounds = textField.getBounds(textField);
 		textField.y = (textBounds.height * 0.5);
 	}

@@ -35,7 +35,7 @@ class TextSprite extends Sprite
 		_textField = new TextField();
 		_textField.defaultTextFormat = textFormat;
 		_textField.autoSize = TextFieldAutoSize.LEFT;
-		//_textField.width = stage.stageWidth;
+		_textField.width = stage.stageWidth;
 		addChild(_textField);
 	}
 	
